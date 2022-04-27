@@ -14,9 +14,9 @@ const Routes = ()=>{
         <Router>
             <Switch>
                 <Route path='/' element={<LoginPage/>} exact/>
-                <Route path='/main' element={<MainPage/>} />
-                <Route path='/blacklist' element={<BlackListPage/>}/>
-                <Route path='/search' element={<SearchPage/>}/>       
+                {/* <Route path='/main' element={<MainPage/>} /> */}
+                {/* <Route path='/blacklist' element={<BlackListPage/>}/> */}
+                {/* <Route path='/search' element={<SearchPage/>}/> */}
             </Switch>   
         </Router>
     )

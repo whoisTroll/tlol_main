@@ -1,6 +1,6 @@
 import qs from 'qs'
 export const REST_API_KEY = `949d8754dd375aee4eb30a85026f02e0`
-export const REDIRECT_URI = `https://localhost:3000/`
+export const REDIRECT_URI = `http://localhost:3000/`
 export const getKakaoTokenApiParam = (code)=>{
     return {
         url:`https://kauth.kakao.com/oauth/token`,

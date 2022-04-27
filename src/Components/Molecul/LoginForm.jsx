@@ -14,11 +14,9 @@ const LoginForm = ()=>{
         window.location.href = KakaoOAuth
     }
     return (
-        <InputContainer>
-            <Button onClick={handleClickKakaoLogin}>
-                <KakaoLoginButtonImage/>
-            </Button>
-        </InputContainer>
+        <Button onClick={handleClickKakaoLogin}>
+            <KakaoLoginButtonImage/>
+        </Button>
     )
 }
 

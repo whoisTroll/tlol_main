@@ -1,37 +1,23 @@
 import axios from 'axios'
 import React,{useEffect,useState} from 'react'
-import {useSearchParams,useNavigate, Link} from 'react-router-dom'
+import {useSearchParams,useNavigate} from 'react-router-dom'
 
 import LoginForm from '../Molecul/LoginForm'
 
 import {getKakaoTokenApiParam} from '../../Config/kakaoAuth'
 import {ACOUNT_URI} from '../../Config/Urls'
-import styled from 'styled-components'
+import { Link } from '@mui/material'
 
-const UesrReviewContainer = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: center;
-`
-const UserReviewCard = ({userName,reviews,hashTags})=>{
-    return(
-        <UesrReviewContainer>
-            {userName}<br></br>
-            {reviews}<br></br>
-            {hashTags}<br></br>
-        </UesrReviewContainer>
-    )
-    
-}
+// import styled from 'styled-components'
 
 const LoginPage=()=>{
     const [searchParams] = useSearchParams()
-    const [islogin, setislogin] = useState(true);
+    const [islogin, setislogin] = useState(false);
     
     let navigate = useNavigate()
     useEffect(() => {
         const code = searchParams.get("code")
-        if (code) {
+        if ((!islogin)&&code) {
             const payload = getKakaoTokenApiParam(code);
             const getToken = async ()=>{
                 console.log(payload.payload)
@@ -40,27 +26,31 @@ const LoginPage=()=>{
                     console.log(data)
                     const token = data.data.access_token
                     console.log(token)
-                    const t = await axios.post("https://tlol.me/api/account/user/login",{
+                    const t = await axios.post("/api/account/user/login",{
                         "accessToken" : token
                     })
-                    console.log(t)
+                    setislogin(true)
+                    console.log(t,"?")
+                    return navigate("/")
                 } catch (error) {
                     return navigate("/")
+
                 }
             }
             getToken()
+        }else{
+            
         }
     }, [])
     const readBl = async () => {
         let response = await axios.get(
-                "https://tlol.me/api/blacklist"
+                "/api/blacklist"
             )
         alert(JSON.stringify(response))
      }
     return (
         <>
-        <UserReviewCard userName="초원범" reviews={["레드훔쳐먹고 튐","개잘함", "ㅈㄴ잘함"]} hashTags={["#좀함", "#존나잘함"]}/>
-        <LoginForm/>
+        로딩중
         </>
     )
 }

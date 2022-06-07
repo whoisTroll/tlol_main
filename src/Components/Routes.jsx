@@ -1,24 +1,25 @@
 import React from 'react'
 import LoginPage from './Pages/LoginPage'
-import BlackListPage from './Pages/BlackListPage'
+import TlolListPage from './Pages/TlolListPage'
 import SearchPage from './Pages/SearchPage'
+import AddTlolPage from './Pages/AddTlolPage'
 import {
     BrowserRouter as Router,
     Routes as Switch,
-    Route
+    Route,
+    Link
 } from 'react-router-dom'
 import MainPage from './Pages/MainPage'
 
 const Routes = ()=>{
     return(
-        <Router>
             <Switch>
-                <Route path='/' element={<LoginPage/>} exact/>
-                {/* <Route path='/main' element={<MainPage/>} /> */}
-                {/* <Route path='/blacklist' element={<BlackListPage/>}/> */}
-                {/* <Route path='/search' element={<SearchPage/>}/> */}
-            </Switch>   
-        </Router>
+                <Route path='/' element={<MainPage/>} exact/>
+                <Route path='/add' element={<AddTlolPage/>}/>
+                <Route path='/login' element={<LoginPage/>} />
+                <Route path='/tlollist' element={<TlolListPage/>}/>
+                <Route path='/search' element={<SearchPage/>}/>
+            </Switch>
     )
 }
 

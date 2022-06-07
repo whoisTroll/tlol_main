@@ -1,4 +1,5 @@
-export const BASE_URL = "https://tlol.me"
+export const BASE_URL = "http:localhost:8080"
 export const ACOUNT_URI = "/api/account/user/login"
 export const MULTI_SEARCH = "/api/search/multi"
-export const USER_SEARCH = "/api/search/one/"
+// export const USER_SEARCH = "/api/search/one/"
+export const USER_SEARCH = "/api/blacklist/detail/hashtags/"

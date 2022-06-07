@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.8.0",
     "@mui/material": "^5.6.3",
     "@mui/styled-engine-sc": "^5.6.1",
     "@testing-library/jest-dom": "^5.16.2",
@@ -18,7 +20,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "HTTPS=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -41,5 +43,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://tlol.me"
+  "proxy":"https://tlol.me"
 }

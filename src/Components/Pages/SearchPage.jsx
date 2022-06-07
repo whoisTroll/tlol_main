@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import UserReviewCard from '../Molecul/UserReviewCard';
 import UserSearchForm from '../Molecul/UserSeachForm';
-import UserCard from '../Molecul/UserCard'
 
 const isEmptyObject = (obj)=>{
     return Object.keys(obj).length === 0;
@@ -13,11 +13,11 @@ const SearchPage = ()=>{
     }, [userData])
     return(
         <>
-        <div>검색페이지</div>
+            <br/>
+            <br/>
         <UserSearchForm setUserData={setUserData}/>
-        {isEmptyObject(userData)?
-        "유저를 검색하거라":<UserCard userData={userData}/>
-        }
+        <br/>
+        <UserReviewCard trollNickname={"깡뚜맞"} reviews={["레드훔쳐먹고 튐","개잘함", "ㅈㄴ잘함"]} hashtags={["#좀함", "#존나잘함"]} isInMyTlolList={true}/>
         </>
     )
 }

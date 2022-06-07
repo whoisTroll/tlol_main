@@ -4,43 +4,36 @@ import styled from 'styled-components';
 
 import {USER_SEARCH} from '../../Config/Urls'
 
-import Button from '../atoms/Button';
-import Input from '../atoms/Input'
+import {Button,TextField,useFormControl} from '@mui/material'
 import Span from '../atoms/Span';
-const UserSearchContainer = styled.div``
+const UserSearchContainer = styled.div`
+    display: flex;
+`
 const UserSearchForm = (props)=>{
     const [isLoding, setisLoding] = useState(false)
     const userNameInputRef = useRef()
-    const handleonClickSearchButton = ()=>{
+    //나중에 recoil로 뺄거임
+    const handleOnClickSearchButton = async ()=>{
         const userName = userNameInputRef.current.value
+        console.log(userNameInputRef.current.value)
         if (userName.trim()){
             setisLoding(true)
-            axios.get(USER_SEARCH+`${userName}`).
-            then((data)=>{
-                setisLoding(false)
-                props.setUserData(data.data)
-                console.log(data)
-            }).catch((err)=>{
-                setisLoding(false)
-                if(err.response.status){
-                    alert("존재하지 않는 유저입니다.")
-                    props.setUserData({})
-                }
-                else{
-                    alert("에러")
-                }
-            })
+            const hashtags = axios.get("https://tlol.me/api/blacklist/best/hashtags/"+userName);
+            const reviews = axios.get("https://tlol.me/api/blacklist/detail/reviews/"+userName);
+            const result = await Promise.all([hashtags,reviews])
+            console.log(result)
+            
             
         }
         else{
             alert("입력 제대로해라")
         }
+
     }
     return (
         <UserSearchContainer>
-        <Span>유저검색</Span>
-        <Input ref={userNameInputRef}/>
-        <Button onClick={handleonClickSearchButton} disabled={isLoding}>{isLoding ?"로딩중":"검색"}</Button>
+            <TextField  label="유저이름" inputRef={userNameInputRef} fullWidth/>
+            <Button  variant="contained" onClick={handleOnClickSearchButton} disabled={isLoding}>{isLoding ?"로딩중":"검색"}</Button>
         </UserSearchContainer>
     )
 }

@@ -1,6 +1,13 @@
-import React from 'react'
+import React, { useState, useEffect, useMemo } from 'react';
+import axios from 'axios'
+
 import styled from 'styled-components'
-import {Link} from 'react-router-dom'
+
+import {getKakaoTokenApiParam} from '../../Config/kakaoAuth'
+
+import {Link,useNavigate,useSearchParams} from 'react-router-dom'
+import { AppBar,Paper,Toolbar } from '@mui/material'
+import UserReviewCard from '../Molecul/UserReviewCard'
 const MainContainer = styled.div`
     width: 100%;
     height: 1000px;
@@ -9,15 +16,24 @@ const MainContainer = styled.div`
 `
 
 const MainPage = ()=>{
+    const [tlolUser, setTlolUser] = useState(false)
+    const [userName, setUserName] = useState("초원범")
+    useEffect(() => {
+        const getTlolUserDate = async ()=>{
+            const data = await axios.get("https://tlol.me/api/search/one/"+userName)
+            const json = data.data.blackListDto
+            console.log(json)
+            setTlolUser(json)
+        }
+        getTlolUserDate()
+    }, [])
     return(
-        <MainContainer>
-            <Link style={{
-                flex: 1
-            }} to="/blacklist">내 블랙리스트</Link>
-            <Link style={{
-                flex: 1
-            }} to='/search'>전적 조회하기</Link>
-        </MainContainer>
+        <>
+        <Paper>
+            {tlolUser&&<UserReviewCard trollNickname={userName} {...tlolUser}/>}
+            {/* {state&&} */}
+        </Paper>
+        </>
     )
 }
 

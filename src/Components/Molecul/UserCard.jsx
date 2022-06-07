@@ -1,41 +1,27 @@
-import React, { useState,useEffect,useRef } from 'react'
-import styled from 'styled-components'
-import Button from '../atoms/Button'
-import Span from '../atoms/Span'
-import BlackListForm from './BlackListForm'
-import MatchHistory from './MatchHistory'
-const checkQtype=(userGameDto)=>{
-    return userGameDto.filter((obj)=>{
-        return obj['queueType']=="RANKED_SOLO_5x5"
-    })[0]
-}
-const CardContainer = styled.div`
-`
-const UserCard = ({userData})=>{
-    const [userGameDto, setUserGameDto] = useState(checkQtype(userData.userGameDto));
-    const [blackListFormVisible, setblackListFormVisible] = useState(false)
-    useEffect(() => {
-        setUserGameDto(checkQtype(userData.userGameDto));
-    }, [userData]);
-    const cardRef = useRef();
-    const handleAddBlackListButtonClick = ()=>{
-        setblackListFormVisible(!blackListFormVisible)
-    }
-    return (
-        <CardContainer ref={cardRef} id={userData.userDto.puuid}>
-        <Span>유저아이디 : {userData.userDto.name} </Span>
-        {
-            userGameDto?
-            <><Span>티어 : {userGameDto.tier} {userGameDto.rank} </Span>
-            <Span>점수 : {userGameDto.leaguePoints}</Span></>:<p>'렝겜안한 이청길입니다.'</p>
-        }
-        <Span>블랙리스트 여부 {userData.blackListDto.black ? "O":"X"} </Span>
-        <Span>블랙리스트 추가한 사람 수 : {userData.blackListDto.totalBlackCount} </Span>
-        {userData.blackListDto.black?"":<Button onClick={handleAddBlackListButtonClick}>블랙리스트 추가</Button>}
-        {blackListFormVisible?<BlackListForm/>:""}
-        {userData.matchHistory.map((matchData)=><MatchHistory key={matchData.info.gameId} matchData={matchData.info} userId={userData.userDto.puuid}/>)}
-        </CardContainer>
+import {Card, CardContent, Chip, List, ListItem, ListItemText, Typography} from '@mui/material'
 
+
+const UserReviewCard = ({userName,reviews,review,hashtags})=>{
+    console.log(hashTags)
+    const hashTagItems = hashTags.map((hashTag)=><Chip key={hashTag} color="primary" variant="outlined" label={hashTag}/>)
+    const reviewsItems = reviews&&reviews.map((review,idx)=><ListItem key={`review-item-${idx}`} divider={true}><ListItemText>{review}</ListItemText></ListItem>)
+    const reviewItem = review&&<ListItem divider={true}><ListItemText>{review}</ListItemText></ListItem>
+    return(
+            <Card variant="outlined">
+                <CardContent>
+                    <Typography variant="h6" component="div">{userName}</Typography>
+                    <Typography>트롤 등록 : 10회</Typography>
+                        {hashTagItems}
+                    </CardContent>
+                    <CardContent>
+                        <Typography variant="h6" component="div">리뷰</Typography>
+                        <List>
+                            {reviewsItems||reviewItem}
+                        </List>
+                </CardContent>
+            </Card>
     )
+    
 }
-export default UserCard
+
+export default UserReviewCard

@@ -10,31 +10,31 @@ import { Link } from '@mui/material'
 
 // import styled from 'styled-components'
 
-const LoginPage=()=>{
+const LoginPage=({handleLogin})=>{
     const [searchParams] = useSearchParams()
-    const [islogin, setislogin] = useState(false);
+    const [loginErr, setLoginErr] = useState(false)
     
     let navigate = useNavigate()
     useEffect(() => {
         const code = searchParams.get("code")
-        if ((!islogin)&&code) {
+        if (code) {
             const payload = getKakaoTokenApiParam(code);
             const getToken = async ()=>{
                 console.log(payload.payload)
                 try {
                     const data = await axios.post(payload.url, payload.payload);
-                    console.log(data)
-                    const token = data.data.access_token
-                    console.log(token)
-                    const t = await axios.post("/api/account/user/login",{
-                        "accessToken" : token
+                    const token = data.data.access_token;
+                    await fetch("/api/account/user/login",{
+                        method:"POST",
+                        headers:{
+                          'Content-Type':"application/json"
+                        },
+                        body:JSON.stringify({"accessToken" : token})
                     })
-                    setislogin(true)
-                    console.log(t,"?")
-                    return navigate("/")
+                    handleLogin(true)
+                    navigate('/')
                 } catch (error) {
-                    return navigate("/")
-
+                    setLoginErr(true)
                 }
             }
             getToken()
@@ -42,12 +42,9 @@ const LoginPage=()=>{
             
         }
     }, [])
-    const readBl = async () => {
-        let response = await axios.get(
-                "/api/blacklist"
-            )
-        alert(JSON.stringify(response))
-     }
+    useEffect(()=>{
+        loginErr&&navigate('/')
+    },[loginErr])
     return (
         <>
         로딩중

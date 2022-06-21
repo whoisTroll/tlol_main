@@ -22,7 +22,7 @@ const SearchPage = ()=>{
         <br/>
         {/* <UserReviewCard trollNickname={"깡뚜맞"} reviews={["레드훔쳐먹고 튐","개잘함", "ㅈㄴ잘함"]} hashtags={["#좀함", "#존나잘함"]} isInMyTlolList={true}/> */}
         {
-            isEmptyObject(userData)?"유저를 검색해 주세요":<UserReviewCard userData={userData}/>
+            isEmptyObject(userData)?"유저를 검색해 주세요":<UserReviewCard {...userData}/>
         }
         </>
     )

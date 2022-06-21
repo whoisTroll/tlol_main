@@ -4,8 +4,8 @@ import {Card, CardContent,Button, Chip, List, ListItem, ListItemText, Typography
 import { Delete } from '@mui/icons-material'
 
 
-const UserReviewCard = ({userData})=>{
-    const {trollNickname,reviews,review,hashtags,isInMyTlolList, totalBlackCount} = userData
+const UserReviewCard = ({trollNickname,reviews,review,hashtags,isInMyTlolList, totalBlackCount})=>{
+
     
     console.log(trollNickname,reviews,review,hashtags,isInMyTlolList, totalBlackCount)
     const hashTagItems = hashtags&&hashtags.map((hashTag)=><Chip key={hashTag} color="primary" variant="outlined" label={hashTag}/>)

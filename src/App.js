@@ -15,7 +15,6 @@ function NavBar(props) {
           props.isLoading?"로딩중입니다.":(props.isLogin?(<>
             <Link to="/">홈</Link>
             <Link to="/search">유저검색</Link>
-            <Link to="/add">트롤추가</Link>
             <Link to="/tlollist">내 트롤목록</Link>
             </>):<LoginForm/>)
             }

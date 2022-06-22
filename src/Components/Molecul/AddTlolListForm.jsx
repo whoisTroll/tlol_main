@@ -1,14 +1,14 @@
 import React, { useState, useEffect,useRef } from 'react';
 import Input from '../atoms/Input'
 import Span from '../atoms/Span'
-import {Card, CardContent, Button, Chip, Divider, FormControl, Link, List, ListItem, ListItemText, Stack, styled, TextField, Typography} from '@mui/material'
+import {Card, CardContent, Button,FormControl,TextField, Typography} from '@mui/material'
 
-const AddTlolListForm = ()=>{
+const AddTlolListForm = ({trollNickname,summonerPuuid})=>{
     return(
-        <Card variant="outlined">
-            <CardContent>
+        <Card variant="outlined" fullWidth={true}>
+            <CardContent fullWidth={true}>
                 <FormControl fullWidth={true}>
-                    <Typography variant="h6" component="div">왜말을못하냐구</Typography>
+                    <Typography variant="h6" component="div">{trollNickname}</Typography>
                     위 유저를 트롤로 기록합니다
                     <br/>
                     <br/>

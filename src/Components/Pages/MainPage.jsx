@@ -17,15 +17,20 @@ const MainContainer = styled.div`
 
 const MainPage = ()=>{
     const [tlolUser, setTlolUser] = useState(false)
-    const [userName, setUserName] = useState("초원범")
+    const [userName, setUserName] = useState("")
     useEffect(() => {
+
         const getTlolUserDate = async ()=>{
-            const data = await axios.get("https://tlol.me/api/search/one/"+userName)
-            const json = data.data.blackListDto
-            console.log(json)
-            setTlolUser(json)
+            try {
+                const data = await axios.get("https://tlol.me/api/search/one/"+userName)
+                const json = data.data.blackListDto
+                console.log(json)
+                setTlolUser(json)
+            } catch (error) {
+                console.log(error)
+            }
         }
-        getTlolUserDate()
+        (userName!="")&&getTlolUserDate()
     }, [])
     return(
         <>

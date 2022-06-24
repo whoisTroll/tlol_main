@@ -51,7 +51,7 @@ const UserSearchForm = (props)=>{
     }
     return (
         <UserSearchContainer>
-            <TextField  label="유저이름" inputRef={userNameInputRef} fullWidth/>
+            <TextField  label="유저이름" inputRef={userNameInputRef} fullWidth={true}/>
             <Button  variant="contained" onClick={handleOnClickSearchButton} disabled={isLoding}>{isLoding ?"로딩중":"검색"}</Button>
         </UserSearchContainer>
     )

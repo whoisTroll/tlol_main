@@ -1,19 +1,24 @@
 import axios from 'axios';
 import React,{useState,useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
-import { tlolList } from '../../Config/Dummy';
+// import { tlolList } from '../../Config/Dummy';
 import UserReviewCard from '../Molecul/UserReviewCard';
 
 const TlolListPage=()=>{
-    console.log(tlolList.blacklist)
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const [tlolList, setTlolList] = useState([])
     useEffect(() => {
         const getTlolList = async()=>{
-            const data = await (await axios.get("https://tlol.me/api/blacklist")).data
-            console.log(data)
+            const res = await fetch("/api/blacklist")
+            const json = await res.json()
+            const tlolListData = json.blacklist;
+            setTlolList(tlolListData)
         }
         getTlolList()
     }, []);
-    const tlolCards = tlolList.blacklist.map((data)=><UserReviewCard key={data.trollPuuid} {...data}/>)
+    console.log(tlolList)
+    const tlolCards = tlolList.map((data)=><UserReviewCard key={data.trollPuuid} isInMyTlolList={true} {...data}/>)
     return (
         <>
             <div>블랙리스트페이지</div>

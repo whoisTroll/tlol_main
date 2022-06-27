@@ -8,24 +8,26 @@ import {getKakaoTokenApiParam} from '../../Config/kakaoAuth'
 import {Link,useNavigate,useSearchParams} from 'react-router-dom'
 import { AppBar,Paper,Toolbar } from '@mui/material'
 import UserReviewCard from '../Molecul/UserReviewCard'
-const MainContainer = styled.div`
-    width: 100%;
-    height: 1000px;
-    display: flex;
-    flex-direction: column;
-`
 
 const MainPage = ()=>{
-    const [tlolUser, setTlolUser] = useState(false)
+    const [tlolUser, setTlolUser] = useState({})
     const [userName, setUserName] = useState("")
     useEffect(() => {
-
         const getTlolUserDate = async ()=>{
             try {
-                const data = await axios.get("https://tlol.me/api/search/one/"+userName)
-                const json = data.data.blackListDto
+                const userDataRes = await fetch("/api/search/one/"+userName)
+                const hashtagsRes = await fetch("/api/blacklist/best/hashtags/"+userName);
+                const hashtagsJson = await hashtagsRes.json()
+                const json = await userDataRes.json()
                 console.log(json)
-                setTlolUser(json)
+                const tlolDto = json.blackListDto;
+                const userData = {
+                    isInMyTlolList:tlolDto.black,
+                    totalBlackCount:tlolDto.totalBlackCount,
+                    summonerPuuid:tlolDto.summonerPuuid,
+                    hashtags:hashtagsJson.hashtags
+                }
+                setTlolUser({...userData})
             } catch (error) {
                 console.log(error)
             }
@@ -35,7 +37,7 @@ const MainPage = ()=>{
     return(
         <>
         <Paper>
-            {tlolUser&&<UserReviewCard trollNickname={userName} {...tlolUser}/>}
+            {userName&&<UserReviewCard trollNickname={userName} {...tlolUser}/>}
             {/* {state&&} */}
         </Paper>
         </>

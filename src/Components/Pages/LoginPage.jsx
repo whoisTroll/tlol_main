@@ -24,6 +24,7 @@ const LoginPage=({handleLogin})=>{
                 try {
                     const data = await axios.post(payload.url, payload.payload);
                     const token = data.data.access_token;
+                    console.log(token)
                     await fetch("/api/account/user/login",{
                         method:"POST",
                         headers:{

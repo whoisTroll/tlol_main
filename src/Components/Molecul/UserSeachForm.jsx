@@ -14,22 +14,23 @@ const UserSearchForm = (props)=>{
     const userNameInputRef = useRef()
 
     const handleOnClickSearchButton = async ()=>{
-        const userName = userNameInputRef.current.value
+        const userName = userNameInputRef.current.value.replace(/\s/g,"")
         console.log(userNameInputRef.current.value)
-        if (userName.trim()){
+        console.log(userName)
+        if (userName){
             try {
                 setisLoding(true)
 
-                const userDataRes = await axios.get("https://tlol.me/api/search/one/"+userName)
-                const tlolDto = userDataRes.data.blackListDto
-                const summonerPuuid = userDataRes.data.summonerPuuid
-                const hashtagsRes = axios.get("/api/blacklist/best/hashtags/"+userName);
-                const reviewsRes = axios.get("/api/blacklist/detail/reviews/"+userName);
-                const [hashtags, reviews] = (await Promise.all([hashtagsRes,reviewsRes])).map((res)=>res.data)
-                console.log(hashtags, reviews, tlolDto)
-        {/* <UserReviewCard trollNickname={"깡뚜맞"} reviews={["레드훔쳐먹고 튐","개잘함", "ㅈㄴ잘함"]} hashtags={["#좀함", "#존나잘함"]} isInMyTlolList={true}/> */}
+                const userDataRes = fetch("/api/search/one/"+userName)
+                const hashtagsRes = fetch("/api/blacklist/best/hashtags/"+userName);
+                const reviewsRes = fetch("/api/blacklist/detail/reviews/"+userName);
 
-                const userData = {
+                console.log(userName,"????")
+                const [userData,hashtags, reviews] =await Promise.all((await Promise.all([userDataRes,hashtagsRes,reviewsRes])).map((res)=>res.json()))
+                const tlolDto = userData.blackListDto
+                const summonerPuuid = userData.summonerPuuid
+                console.log(userData,hashtags, reviews,summonerPuuid,"정보테스트")
+                const tlolData = {
                     trollNickname:userName,
                     reviews:reviews.reviews,
                     hashtags:hashtags.hashtags,
@@ -37,7 +38,7 @@ const UserSearchForm = (props)=>{
                     totalBlackCount:tlolDto.totalBlackCount,
                     summonerPuuid:summonerPuuid
                 }
-                props.handleUserData(userData)
+                props.handleUserData(tlolData)
             } catch (error) {
                 console.log(error)
                 alert("잘못된 요청입니다.")

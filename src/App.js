@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react'
 import Routes from './Components/Routes'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, useLocation, useNavigate} from 'react-router-dom'
 import './App.css';
 import { AppBar, IconButton, Toolbar } from '@mui/material';
 import { Menu } from '@mui/icons-material';
@@ -24,6 +24,7 @@ function NavBar(props) {
 function App() {
   const [isLogin, setisLogin] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const locatoin = useLocation()
   const navigate = useNavigate()
   function handleLogin(islogined) {
     setisLogin(islogined)
@@ -49,7 +50,11 @@ function App() {
     }
   }, [])
   useEffect(()=>console.log("로그인?",isLogin),[isLogin])
-  console.log("Test")
+  console.log(locatoin.pathname.includes("tlolcard"),locatoin.pathname)
+  if(locatoin.pathname.includes("tlolcard")){
+      return <Routes handleLogin={handleLogin} isLogin={isLogin}/>
+      
+  }
   return (
     <div>
       <AppBar position="fixed" >

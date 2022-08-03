@@ -10,6 +10,7 @@ import {
     Link
 } from 'react-router-dom'
 import MainPage from './Pages/MainPage'
+import TlolCardPage from './Pages/TlolCardPage'
 
 const Routes = (props)=>{
     return(
@@ -19,6 +20,7 @@ const Routes = (props)=>{
                 <Route path='/login' element={<LoginPage handleLogin={props.handleLogin} isLogin={props.isLogin}/>} />
                 <Route path='/tlollist' element={<TlolListPage/>}/>
                 <Route path='/search' element={<SearchPage/>}/>
+                <Route path='/tlolCard/:nickname' element={<TlolCardPage />} />
             </Switch>
     )
 }

@@ -8,6 +8,7 @@ import axios from 'axios';
 import LoginForm from './Components/Molecul/LoginForm';
 
 function NavBar(props) {
+  console.log(props.isLogin)
   return(
     
     <Toolbar sx={{display:"flex", justifyItems:"center", justifyContent:"center"}}>
@@ -38,12 +39,12 @@ function App() {
           console.log("?")
           return res.json()
         }
-        return res.text()
+        return res.json()
       })
-      .then((text)=>{
-        console.log(text,"????????")
+      .then((json)=>{
+        console.log(json,json.message=="인증된 사용자 입니다.","????????")
         setIsLoading(false)
-        text=="인증된 사용자 입니다."&&setisLogin(true)
+        json.message=="인증된 사용자 입니다." && setisLogin(true)
       })
     }else{
       navigate('/')

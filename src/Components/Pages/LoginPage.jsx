@@ -10,14 +10,16 @@ import { Link } from '@mui/material'
 
 // import styled from 'styled-components'
 
-const LoginPage=({handleLogin})=>{
+const LoginPage=({handleLoading,handleLogin})=>{
     const [searchParams] = useSearchParams()
     const [loginErr, setLoginErr] = useState(false)
     
     let navigate = useNavigate()
     useEffect(() => {
         const code = searchParams.get("code")
+        console.log("?",handleLoading,"??",handleLogin)
         if (code) {
+            handleLoading(true)
             const payload = getKakaoTokenApiParam(code);
             const getToken = async ()=>{
                 console.log(payload.payload)
@@ -32,15 +34,12 @@ const LoginPage=({handleLogin})=>{
                         },
                         body:JSON.stringify({"accessToken" : token})
                     })
-                    handleLogin(true)
-                    navigate('/')
                 } catch (error) {
-                    setLoginErr(true)
                 }
             }
             getToken()
         }else{
-            
+            handleLoading(false)
         }
     }, [])
     useEffect(()=>{

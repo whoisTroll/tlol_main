@@ -10,15 +10,7 @@ function TlolCardPage() {
   })
   const [hashtags,setHashtags] = useState([])
 
-  // const receiveMassege = (event) =>{
-  //   console.log("?")
-  //   console.log(event.origin)
-  //   if(event.origin !== "https://www.op.gg"){
-  //     return;
-  //   }
-  //   const resNickname = event.data.nickname
-  //   setNickname(resNickname)
-  // }
+  
   useEffect(() => {
     if(""!==nickname){
       const getTlolDto = async ()=>{

@@ -78,12 +78,12 @@ const AddTlolListForm = ({trollNickname,summonerPuuid})=>{
                     <TextField color="primary" onChange={(e)=>setReview(e.target.value)} value={review} focused label="리뷰" variant="outlined" />
                     <br/>
                     <div>
-                            <Box>
-                                <Typography>
-                                    태그
-                                    <Typography fontSize="5px" variant="caption" color="GrayText"> 태그를 누르면 삭제됩니다.</Typography>
-                                </Typography>
-                            </Box>
+                        <Box>
+                            <Typography>
+                                태그
+                                <Typography fontSize="5px" variant="caption" color="GrayText"> 태그를 누르면 삭제됩니다.</Typography>
+                            </Typography>
+                        </Box>
                         {tagList}
                     </div>
                     <br/>

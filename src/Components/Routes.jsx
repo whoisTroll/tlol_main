@@ -13,11 +13,12 @@ import MainPage from './Pages/MainPage'
 import TlolCardPage from './Pages/TlolCardPage'
 
 const Routes = (props)=>{
+    console.log("?sdfjildsifjlds",props.handleLoading)
     return(
             <Switch>
                 <Route path='/' element={<MainPage/>} exact/>
                 <Route path='/add' element={<AddTlolPage/>}/>
-                <Route path='/login' element={<LoginPage handleLogin={props.handleLogin} isLogin={props.isLogin}/>} />
+                <Route path='/login' element={<LoginPage handleLogin={props.handleLogin} handleLoading={props.handleLoading} isLogin={props.isLogin}/>}  />
                 <Route path='/tlollist' element={<TlolListPage/>}/>
                 <Route path='/search' element={<SearchPage/>}/>
                 <Route path='/tlolCard/:nickname' element={<TlolCardPage />} />

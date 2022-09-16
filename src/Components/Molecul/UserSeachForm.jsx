@@ -25,7 +25,6 @@ const UserSearchForm = (props)=>{
                 const hashtagsRes = fetch("/api/blacklist/best/hashtags/"+userName);
                 const reviewsRes = fetch("/api/blacklist/detail/reviews/"+userName);
 
-                console.log(userName,"????")
                 const [userData,hashtags, reviews] =await Promise.all((await Promise.all([userDataRes,hashtagsRes,reviewsRes])).map((res)=>res.json()))
                 const tlolDto = userData.blackListDto
                 const summonerPuuid = userData.summonerPuuid

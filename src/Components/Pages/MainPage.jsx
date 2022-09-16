@@ -1,18 +1,15 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import axios from 'axios'
-
-import styled from 'styled-components'
-
-import {getKakaoTokenApiParam} from '../../Config/kakaoAuth'
-
-import {Link,useNavigate,useSearchParams} from 'react-router-dom'
 import { AppBar,Paper,Toolbar } from '@mui/material'
 import UserReviewCard from '../Molecul/UserReviewCard'
-
+if ( window.location != window.parent.location) {
+    // you're in an iframe
+    console.log("?ddsfaslijl")
+  }
 const MainPage = ()=>{
     const [tlolUser, setTlolUser] = useState({})
     const [userName, setUserName] = useState("")
     useEffect(() => {
+        console.log("?")
         const getTlolUserDate = async ()=>{
             try {
                 const userDataRes = await fetch("/api/search/one/"+userName)
@@ -36,10 +33,10 @@ const MainPage = ()=>{
     }, [])
     return(
         <>
-        <Paper>
-            {userName&&<UserReviewCard trollNickname={userName} {...tlolUser}/>}
-            {/* {state&&} */}
-        </Paper>
+            <Paper>
+                {userName&&<UserReviewCard trollNickname={userName} {...tlolUser}/>}
+                {/* {state&&} */}
+            </Paper>
         </>
     )
 }

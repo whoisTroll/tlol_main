@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react'
+import Badge from '../atoms/Badge'
 
 import {Card, CardContent,Button, Chip, List, ListItem, ListItemText, Typography, Modal, Box} from '@mui/material'
-import { Delete,Add, AddBox } from '@mui/icons-material'
+import { Add, AddBox } from '@mui/icons-material'
 import AddTlolListForm from './AddTlolListForm';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import TlolCounter from './TlolCounter';
+import styled from '@emotion/styled';
+import { Delete } from '../atoms/Icon';
 
 const addTlolModalStyle = {
     position: 'absolute',
@@ -14,7 +18,27 @@ const addTlolModalStyle = {
     width: '90vw',
     boxShadow: 24,
   };
-const UserReviewCard = ({trollNickname,reviews,review,hashtags,isInMyTlolList, totalBlackCount, summonerPuuid, blPk})=>{
+
+const UserNameText = styled.span`
+    font-size:24px;
+    font-weight: 700;
+`
+const CardHeaderContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+`
+const DeleteButton = styled.button`
+    width:30px;
+    height:30px;
+    background-color: #FFFFFF;
+    border:solid 1px #989898;
+    border-radius: 10px;
+    padding: 0px;
+    cursor: pointer;
+    
+`
+const UserReviewCard =
+ ({getTlolList, trollNickname,reviews,review,hashtags,isInMyTlolList, totalBlackCount, summonerPuuid, blPk})=>{
     const [modalOpen, setModalOPen] = useState(false);
     const handleModalOpen = ()=>setModalOPen(true)
     const handleModalClose = ()=>setModalOPen(false)
@@ -28,30 +52,41 @@ const UserReviewCard = ({trollNickname,reviews,review,hashtags,isInMyTlolList, t
             }).then((res)=>{
                 console.log(res)
                 if(res.status==200){
-                    navigate("/tlollist");
+                    // navigate("/tlollist");
+                    getTlolList().then(
+                        // navigate("/tlollist")
+                    )
                 }else{
                     alert("다시 시도해주세요!");
-                    navigate("/tlollist");
                 }
+
             })
         }else{
-            navigate("/tlollist");
+            // navigate("/tlollist");
         }
 
     }
     console.log(trollNickname,reviews,review,hashtags,isInMyTlolList, totalBlackCount, summonerPuuid)
-    const hashTagItems = hashtags&&hashtags.map((hashTag)=><Chip key={hashTag} color="primary" variant="outlined" label={hashTag}/>)
+    const hashTagItems = hashtags&&hashtags.map((hashTag)=><Badge key={hashTag} color="primary" variant="outlined" name={hashTag}/>)
     const reviewsItems = reviews&&reviews.map((review,idx)=><ListItem key={`review-item-${idx}`} divider={true}><ListItemText>{review}</ListItemText></ListItem>)
     const reviewItem = review&&<ListItem><ListItemText>{review}</ListItemText></ListItem>
+    console.log(totalBlackCount,"??")
     return(
-            <Card variant="outlined">
+            <Card sx={{
+                background: "#FFFFFF",
+                boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
+                border:"0px",
+                borderRadius: "16px",
+                margin: "16px 22px",
+            }} variant="outlined">
                 <CardContent>
-                    <Typography variant="h6" color={isInMyTlolList&&"red"} component="div">
-                        {trollNickname}
-                    </Typography>
-                    {
-                        isInMyTlolList?
-                            <Button variant="outlined" onClick={handleDeleteButton} startIcon={<Delete />}>트롤리스트에서 제거?</Button>
+                    <CardHeaderContainer>
+                        <UserNameText >
+                            {trollNickname}
+                            
+                        </UserNameText>
+                        {isInMyTlolList?
+                            <DeleteButton onClick={handleDeleteButton}><Delete/></DeleteButton>
                                 :
                             (
                                 <>
@@ -63,18 +98,17 @@ const UserReviewCard = ({trollNickname,reviews,review,hashtags,isInMyTlolList, t
                                     </Modal>
                                 </>
                             )}
-                    
-                    {totalBlackCount&&<Typography variant="body1">트롤 등록 : {totalBlackCount}</Typography>}
+                    </CardHeaderContainer>
+                    {totalBlackCount&&<TlolCounter/>}
                     
                     {(reviewsItems||reviewItem)&&
                     <>
-                        <Typography component="div">리뷰</Typography>
+                        <Typography component="div" fontSize="14px" fontWeight="700">리뷰</Typography>
                         <List>
                             {reviewsItems||reviewItem}
                         </List>
                     </>    
                     }
-                    <Typography variant="body1">해시태그</Typography>
                     <Box>
                         {hashTagItems}
                     </Box>

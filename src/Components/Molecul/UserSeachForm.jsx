@@ -15,8 +15,6 @@ const UserSearchForm = (props)=>{
 
     const handleOnClickSearchButton = async ()=>{
         const userName = userNameInputRef.current.value.replace(/\s/g,"")
-        console.log(userNameInputRef.current.value)
-        console.log(userName)
         if (userName){
             try {
                 setisLoding(true)

@@ -11,10 +11,34 @@ const isEmptyObject = (obj)=>{
 const SearchPage = ()=>{
     const [searchUserName, setSearchUserName] = useRecoilState(searchUserNameState)
     const [searchUserData, setSearchUserData] = useRecoilState(searchUserDataState)
-    const [userData, setUserData] = useState({})
     useEffect(() => {
-        console.log(userData,"???")
-    }, [userData])
+        const userName = searchUserName.replace(/\s/g,"")
+        const setData = async ()=>{
+            if (userName){
+                try {
+                    const userDataRes = fetch("/api/search/one/"+userName)
+                    const hashtagsRes = fetch("/api/blacklist/best/hashtags/"+userName);
+                    const reviewsRes = fetch("/api/blacklist/detail/reviews/"+userName);
+                    
+                    const [userData,hashtags, reviews] =await Promise.all((await Promise.all([userDataRes,hashtagsRes,reviewsRes])).map((res)=>res.json()))
+                    const tlolDto = userData.blackListDto
+                    const summonerPuuid = userData.summonerPuuid
+                    console.log(userData,hashtags, reviews,summonerPuuid,"정보테스트")
+                    const tlolData = {
+                        trollNickname:userName,
+                        reviews:reviews.reviews,
+                        hashtags:hashtags.hashtags,
+                        isInMyTlolList:tlolDto.black,
+                        totalBlackCount:tlolDto.totalBlackCount,
+                        summonerPuuid:summonerPuuid
+                    }
+                    setSearchUserData(tlolData)
+                } catch (error) {
+                }
+            }
+        }
+        setData()
+    }, [])
     return(
         <>
         {

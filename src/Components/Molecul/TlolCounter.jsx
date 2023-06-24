@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material"
 import { TlolStamp } from "../atoms/Icon"
 
 function TlolCounter({totalBlackCount}) {
+    console.log(totalBlackCount,"??????")
     return(
 
     <Box sx={{display:"flex",flexDirection:"row", alignItems:"center"}}>

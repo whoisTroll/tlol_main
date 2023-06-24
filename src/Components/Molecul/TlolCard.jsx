@@ -7,9 +7,10 @@ import TlolCounter from "./TlolCounter"
 
 
 const TlolCard = ({tlolInfo:{totalBlackCount,black}, hashtags})=>{
+    console.log(totalBlackCount,"??")
     
     return (
-        <Box sx={{padding:"10px"}}>
+        <Box sx={{padding:"10px", flex:"0 0  auto"}}>
             <TlolCounter totalBlackCount={totalBlackCount}/>
             {hashtags.map((tag)=><Badge name={tag}/>)}
             <Logo style={{position:"absolute",bottom:"0px",right:"0px"}}/>

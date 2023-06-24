@@ -52,10 +52,12 @@ function SearchInput() {
         background:"#F8F8F8" , 
         borderRadius:"16px",
         cursor:"pointer",
+        
       }, 
+      multiline:false,
       endAdornment:(<InputAdornment onClick={handleOnClickSearchButton}><Search/></InputAdornment>)
     }
-    const InputStyle = {height:"56px", width:"360px", borderWidth:"0px"}
+    const InputStyle = {height:"56px", width:"360px"}
     return (
       <TextField
         value={searchUserName}
@@ -63,9 +65,8 @@ function SearchInput() {
         style={InputStyle} 
         InputProps={InputProps} 
         size="small" 
-        sx={{ input:{border:"none",}}} 
         placeholder="유저 이름을 입력해주세요"
-        />
+      />
     )
   }
   

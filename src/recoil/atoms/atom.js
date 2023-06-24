@@ -8,3 +8,7 @@ export const searchUserDataState = atom({
     key:"searchUserDataState",
     default:{}
 })
+export const loginState = atom({
+    key:"isLogin",
+    default:false
+})

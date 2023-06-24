@@ -5,13 +5,15 @@ import {ReactComponent as SearchSvgComponent} from "../../assets/search.svg";
 import {ReactComponent as ListSvgComponent} from "../../assets/list.svg";
 import {ReactComponent as LogoSvgComponent} from "../../assets/Logo-main.svg"
 import {ReactComponent as TlolStampComponent} from "../../assets/tlol-stamp.svg"
+import {ReactComponent as TlolAddComponent} from "../../assets/add.svg"
+import {ReactComponent as TlolDeleteCompotnent} from "../../assets/trash.svg"
 
 import { Icon, styled } from "@mui/material";
 
 const ExSvgComponent = (props) => {
     const Svg = styled(props.component)`
-        width:100%;
-        height: 25px;
+        width:${props.width?props.width:"100%"};
+        height: ${props.height?props.height:"25px"};
         circle{
             stroke: ${props=>props.selected?"#E1251B":"#999898"};
         }
@@ -41,7 +43,7 @@ function Cancle(props) {
 
 }
 function Delete(props) {
-    
+    return <ExSvgComponent component={TlolDeleteCompotnent} width="20px"/>
 }
 function Logout(props) {
     
@@ -50,7 +52,7 @@ function Clear(props) {
     
 }
 function Add(props) {
-    
+    return <ExSvgComponent component={TlolAddComponent} />
 }
 function ListIcon(props) {
     return <ExSvgComponent component={ListSvgComponent} selected={props.selected}/>
@@ -60,7 +62,7 @@ function TlolStamp(props){
         width: 18px;
         height: 18px;
     `
-    return <ExTlolStamp />
+    return  <ExTlolStamp />
 }
 function Logo(props){
     const ExLogo = styled(LogoSvgComponent)`

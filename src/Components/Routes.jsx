@@ -11,7 +11,11 @@ import {
 } from 'react-router-dom'
 import MainPage from './Pages/MainPage'
 import TlolCardPage from './Pages/TlolCardPage'
+import styled from '@emotion/styled'
 
+const ContentsContainer = styled.div`
+    overflow: scroll;
+`
 const Routes = (props)=>{
     console.log("?sdfjildsifjlds",props.handleLoading)
     return(

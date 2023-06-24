@@ -7,12 +7,15 @@ import LoginForm from '../Molecul/LoginForm'
 import {getKakaoTokenApiParam} from '../../Config/kakaoAuth'
 import {ACOUNT_URI} from '../../Config/Urls'
 import { Link } from '@mui/material'
+import { useRecoilState } from 'recoil'
+import { loginState } from '../../recoil/atoms/atom'
 
 // import styled from 'styled-components'
 
 const LoginPage=({handleLoading,handleLogin})=>{
     const [searchParams] = useSearchParams()
     const [loginErr, setLoginErr] = useState(false)
+    const [isLogined, setIsLogined] = useRecoilState(loginState);
     
     let navigate = useNavigate()
     useEffect(() => {
@@ -34,6 +37,7 @@ const LoginPage=({handleLoading,handleLogin})=>{
                         },
                         body:JSON.stringify({"accessToken" : token})
                     })
+                    setIsLogined(true)
                 } catch (error) {
                 }
             }
@@ -43,8 +47,8 @@ const LoginPage=({handleLoading,handleLogin})=>{
         }
     }, [])
     useEffect(()=>{
-        loginErr&&navigate('/')
-    },[loginErr])
+        loginErr&&isLogined&&navigate('/')
+    },[loginErr,isLogined])
     return (
         <>
         로딩중
